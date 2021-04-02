@@ -1,9 +1,19 @@
+<!-- hero basic info -->
 <h3>{{ hero.name }} Details</h3>
 <div><span>id: </span>{{ hero.id }}</div>
 <div><span>name: </span>{{ hero.name | uppercase }}</div>
 
+<!-- edit hero -->
 <div>
     <label for="name">Hero name: </label>
 
     <input id='name' [(ngModel)]='hero.name' type="text" placeholder="name">
 </div>
+
+<!-- heroes list -->
+<h2>My heroes</h2>
+<ul class="heroes">
+    <li *ngFor='let hero of heroes'>
+        <span class="badge">{{ hero.id }}</span> {{ hero.name }}
+    </li>
+</ul>
