@@ -12,13 +12,14 @@ import { HEROES } from '../mock-heroes';
   styleUrls: ['./heroes.component.css']
 })
 export class HeroesComponent implements OnInit {
-
+  // list of heroes
   heroes = HEROES;
 
-  hero: Hero = {
-    id: 1,
-    name: 'Windstorm'
-  };
+  // selected hero for showing hero detail
+  selectedHero?: Hero; // on the start of the application there is no hero selected
+  onSelect(hero: Hero) {
+    this.selectedHero = hero;
+  }
 
   constructor() { }
 
