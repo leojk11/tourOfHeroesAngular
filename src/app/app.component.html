@@ -1,7 +1,13 @@
 <h1>{{ title }}</h1>
 
-<!-- heroes component -->
-<app-heroes></app-heroes>
+<!-- router navigation -->
+<nav>
+    <a routerLink='/dashboard'>Dashboard</a>
+    <a routerLink='/heroes'>Heroes</a>
+</nav>
+
+<!-- navigates throung defined routes -->
+<router-outlet></router-outlet>
 
 <!-- messages component -->
 <app-messages></app-messages>
