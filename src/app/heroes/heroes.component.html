@@ -1,13 +1,9 @@
 <!-- heroes list -->
 <h2>My heroes</h2>
 <ul class="heroes">
-    <li 
-        *ngFor='let hero of heroes' 
-        (click)='onSelect(hero)'
-        [class.selected]="hero === selectedHero"> <!-- when the selected hero is the same as clicked hero then add the selected class -->
-        <span class="badge">{{ hero.id }}</span> {{ hero.name }}
+    <li *ngFor='let hero of heroes'>
+        <a routerLink='/detail/{{ hero.id }}'>
+            <span class="badge">{{ hero.id }}</span> {{ hero.name }}
+        </a>
     </li>
 </ul>
-
-<!-- sending the selected hero into other component for hero details -->
-<app-hero-detail [hero]='selectedHero'></app-hero-detail>
