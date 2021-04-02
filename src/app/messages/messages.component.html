@@ -1,1 +1,12 @@
-<p>messages works!</p>
+<!-- messages will show only of the messages array is not empty -->
+<div *ngIf='messageService.messages.length'>
+
+    <h2>Messages</h2>
+
+    <!-- when the button is clicked all the messages will get deleted -->
+    <button class="clear" (click)='messageService.clear()'>Clear messages</button>
+
+    <!-- loops throught messages array and shows them -->
+    <div *ngFor='let message of messageService.messages'>{{ message }}</div>
+
+</div>
