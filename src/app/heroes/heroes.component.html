@@ -1,19 +1,22 @@
-<!-- hero basic info -->
-<h3>{{ hero.name }} Details</h3>
-<div><span>id: </span>{{ hero.id }}</div>
-<div><span>name: </span>{{ hero.name | uppercase }}</div>
-
-<!-- edit hero -->
-<div>
-    <label for="name">Hero name: </label>
-
-    <input id='name' [(ngModel)]='hero.name' type="text" placeholder="name">
-</div>
-
 <!-- heroes list -->
 <h2>My heroes</h2>
 <ul class="heroes">
-    <li *ngFor='let hero of heroes'>
+    <li 
+        *ngFor='let hero of heroes' 
+        (click)='onSelect(hero)'
+        [class.selected]="hero === selectedHero"> <!-- when the selected hero is the same as clicked hero then add the selected class -->
         <span class="badge">{{ hero.id }}</span> {{ hero.name }}
     </li>
 </ul>
+
+<!-- hero details -->
+<div *ngIf='selectedHero'>
+    <h2>{{ selectedHero.name | uppercase }} Details</h2>
+    <div><span>id: </span>{{ selectedHero.id }}</div>
+    <div>
+        <label for="name">Hero name: </label>
+
+        <input id='name' [(ngModel)]='selectedHero.name' type="text" placeholder="name">
+    </div>
+</div>
+
