@@ -30,7 +30,8 @@ export class HeroesComponent implements OnInit {
 
   // get heroes from hero service
   getHeroes(): void {
-    this.heroes = this.heroService.getHeroes();
+    this.heroService.getHeroes()
+      .subscribe(heroes => this.heroes = heroes); // used subscribe because the getHeroes function now returns an obsevable
   }
 
 }
