@@ -9,14 +9,5 @@
     </li>
 </ul>
 
-<!-- hero details -->
-<div *ngIf='selectedHero'>
-    <h2>{{ selectedHero.name | uppercase }} Details</h2>
-    <div><span>id: </span>{{ selectedHero.id }}</div>
-    <div>
-        <label for="name">Hero name: </label>
-
-        <input id='name' [(ngModel)]='selectedHero.name' type="text" placeholder="name">
-    </div>
-</div>
-
+<!-- sending the selected hero into other component for hero details -->
+<app-hero-detail [hero]='selectedHero'></app-hero-detail>
