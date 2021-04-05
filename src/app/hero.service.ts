@@ -33,6 +33,11 @@ export class HeroService {
     this.messagesService.add(`HeroService: ${message}`);
   }
 
+  // http options that AOI expects
+  httpOptions = {
+    headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+  }
+
   // function that handles operations that have failed and lets the app continue
   private handleError<T>(operation = 'operation', result?: T) {
     return (error: any): Observable<T> => {
@@ -73,6 +78,17 @@ export class HeroService {
         tap(_ => this.log(`Fetched hero ID=${id}`)),
         // error handling
         catchError(this.handleError<Hero>(`getHero ID=${id}`))
+      )
+  }
+
+  // update single hero function
+  updateHero(hero: Hero): Observable<any> {
+    return this.http.put(this.heroesUrl, hero, this.httpOptions)
+      .pipe(
+        // send message that secific hero got updated
+        tap(_ => this.log(`Update hero id=${hero.id}`)),
+        // error handling
+        catchError(this.handleError<any>('updateHero'))
       )
   }
 }
