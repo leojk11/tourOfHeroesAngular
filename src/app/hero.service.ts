@@ -6,9 +6,6 @@ import { Observable, of } from 'rxjs';
 // hero interface
 import { Hero } from './hero';
 
-// mock heroes list
-import { HEROES } from './mock-heroes';
-
 // messages service
 import { MessageService } from './message.service';
 
@@ -66,13 +63,16 @@ export class HeroService {
 
   // get single hero, where the given id is equal
   getHero(id: number): Observable<Hero> {
-    // get only the hero that has the same ID as the given one
-    const hero = HEROES.find(hero => hero.id === id);
+    // url to send http request to
+    const url = `${this.heroesUrl}/${id}`;
 
-    // send message
-    this.log(`fetched hero with ID=${id}`);
-
-    // return the chose hero, it needs to be with of because it is an observable
-    return of(hero);
+    // http request to get single hero by ID
+    return this.http.get<Hero>(url)
+      .pipe(
+        // send message to know which hero has been fetched
+        tap(_ => this.log(`Fetched hero ID=${id}`)),
+        // error handling
+        catchError(this.handleError<Hero>(`getHero ID=${id}`))
+      )
   }
 }
