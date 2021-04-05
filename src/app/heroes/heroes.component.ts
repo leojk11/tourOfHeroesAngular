@@ -30,4 +30,25 @@ export class HeroesComponent implements OnInit {
       .subscribe(heroes => this.heroes = heroes); // used subscribe because the getHeroes function now returns an obsevable
   }
 
+  // add new hero
+  add(name: string): void {
+    name = name.trim();
+
+    // if the sent name is blank just return
+    if(!name) { return };
+
+    // send add hero http request
+    this.heroService.addHero({ name } as Hero)
+      .subscribe(hero => {
+        this.heroes.push(hero);
+      })
+  }
+
+  // delete hero
+  delete(hero: Hero): void {
+    this.heroes = this.heroes.filter(h => h !== hero);
+
+    this.heroService.deleteHero(hero.id).subscribe();
+  }
+
 }

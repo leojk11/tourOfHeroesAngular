@@ -81,7 +81,25 @@ export class HeroService {
       )
   }
 
-  // update single hero function
+  // get request, search heroes by name
+  searchHeroes(term: string): Observable<Hero[]> {
+    // if nothing is sent as term, just return an empty array
+    if(!term.trim()) {
+      return of([]);
+    }
+
+    const url = `${this.heroesUrl}/?name=${term}`;
+
+    return this.http.get<Hero[]>(url)
+      .pipe(
+        tap(x => x.length ?
+          this.log(`found heroes matching "${term}"`) :
+          this.log(`no heroes found matching "${term}"`)),
+        catchError(this.handleError<Hero[]>('searchHeroes', []))
+      )
+  }
+
+  // put request, update single hero function
   updateHero(hero: Hero): Observable<any> {
     return this.http.put(this.heroesUrl, hero, this.httpOptions)
       .pipe(
@@ -89,6 +107,31 @@ export class HeroService {
         tap(_ => this.log(`Update hero id=${hero.id}`)),
         // error handling
         catchError(this.handleError<any>('updateHero'))
+      )
+  }
+
+  // post request, adding new hero to the server
+  addHero(hero: Hero): Observable<Hero> {
+    return this.http.post<Hero>(this.heroesUrl, hero, this.httpOptions)
+      .pipe(
+        // send message when new hero has been added
+        tap((newHero: Hero) => this.log(`added hero w/ ID=${newHero.id}`)),
+        // error handling
+        catchError(this.handleError<Hero>('addHero'))
+      )
+  }
+
+  // delete request, delete hero by id
+  deleteHero(id: number): Observable<Hero> {
+    // url to send request to
+    const url = `${this.heroesUrl}/${id}`;
+
+    return this.http.delete<Hero>(url, this.httpOptions)
+      .pipe(
+        // send message that hero has been deleted
+        tap(_ => this.log(`deleted hero ID=${id}`)),
+        // error handler
+        catchError(this.handleError<Hero>('deleteHero'))
       )
   }
 }

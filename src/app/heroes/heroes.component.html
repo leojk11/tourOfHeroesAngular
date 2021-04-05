@@ -1,9 +1,26 @@
-<!-- heroes list -->
 <h2>My heroes</h2>
+
+<!-- add new heor section -->
+<div>
+    <label id='new-hero'>Hero name: </label>
+    <input for='new-hero' type="text" #heroName />
+
+    <button class="add-button" (click)="add(heroName.value); heroName.value=''">
+        Add new hero 
+    </button>
+</div>   
+
+
+<!-- heroes list -->
 <ul class="heroes">
     <li *ngFor='let hero of heroes'>
         <a routerLink='/detail/{{ hero.id }}'>
             <span class="badge">{{ hero.id }}</span> {{ hero.name }}
         </a>
+
+        <button 
+            class="delete" 
+            title='delete hero' 
+            (click)='delete(hero)'>x</button>
     </li>
 </ul>
