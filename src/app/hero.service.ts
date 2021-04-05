@@ -28,4 +28,16 @@ export class HeroService {
 
     return heroes;
   }
+
+  // get single hero, where the given id is equal
+  getHero(id: number): Observable<Hero> {
+    // get only the hero that has the same ID as the given one
+    const hero = HEROES.find(hero => hero.id === id);
+
+    // send message
+    this.messagesService.add(`HeroService: fetched hero with id=${id}`);
+
+    // return the chose hero, it needs to be with of because it is an observable
+    return of(hero);
+  }
 }
